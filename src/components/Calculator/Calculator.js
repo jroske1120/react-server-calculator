@@ -134,7 +134,7 @@ class Calculator extends Component {
       case "DELETE":
         //This removes the last char from display
         this.setState({
-          displayValue: displayValue.slice(0, -1),
+          displayValue: displayValue.length < 2 ? '0' : displayValue.slice(0, -1),
         });
         if (!nextVal) {
           this.setState({
