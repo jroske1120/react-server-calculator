@@ -1,13 +1,12 @@
 import React from 'react';
 import Calculator from '../Calculator/Calculator'
-import CalcHistory from '../CalcHistory/CalcHistory'
+import './App.css';
+
 function App() {
   
   return (
     <div className="App">
-      <Calculator />
-      <CalcHistory />
-      
+      <Calculator />      
     </div>
   );
 }
