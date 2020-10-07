@@ -24,7 +24,6 @@ class Calculator extends Component {
       .get("/api/calculator")
       .then((response) => {
         this.setState({
-          // ...this.state,
           calculation: response.data,
         });
       })
@@ -34,11 +33,9 @@ class Calculator extends Component {
   };
 
   addCalculation = (firstVal, operator, secondVal) => {
-    console.log("sending calculation", `${firstVal} ${operator} ${secondVal}`);
     axios
       .post("/api/calculator", { ...this.state })
       .then((response) => {
-        console.log(response);
         this.fetchHistory();
       })
       .catch((error) => {
@@ -177,7 +174,7 @@ class Calculator extends Component {
     return (
       <>
         <div>
-          <h1>Calculator</h1>
+          <h1>Joel's Calculator</h1>
           <div style={styles.calculatorContainer}>
             <div style={styles.calcInput}>{this.state.displayValue}</div>
             <div style={styles.numberContainer}>
@@ -239,7 +236,7 @@ const styles = {
     border: "4px groove gray",
     backgroundColor: "#2e465d",
     padding: "25px 0px 50px 0px",
-    borderRadius: "5px",
+    borderRadius: "10px",
     margin: "auto",
     width: "300px",
     minWidth: "200px",
