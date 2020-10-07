@@ -52,8 +52,7 @@ class Calculator extends Component {
         break;
 
       case ".":
-
-      //return to prevent double decimals like 4.4.4
+        //return to prevent double decimals like 4.4.4
         let decimal = displayValue.slice(-1); //gets last character
         this.setState({
           displayValue: decimal !== "." ? displayValue + index : displayValue,
@@ -70,7 +69,7 @@ class Calculator extends Component {
         break;
       case "=":
         //call POST to server
-        console.log(this.state)
+        console.log(this.state);
         this.setState({
           displayValue: "0",
           operator: null,
@@ -102,8 +101,6 @@ class Calculator extends Component {
 
   render() {
     const buttons = [
-      "CLR",
-      "DEL",
       "7",
       "8",
       "9",
@@ -123,22 +120,87 @@ class Calculator extends Component {
     ];
     return (
       <>
-        <div>{this.state.displayValue}</div>
-        <div>
-          {buttons.map((button, index) => (
-            <button key={index} onClick={() => this.handleClick(button)}>
-              {button}
-            </button>
-          ))}
-        </div>
-        <div>
-            <h2>History</h2>
-            <p>{this.state.firstVal}</p>
-            <p>{this.state.operator}</p>
-            <p>{this.state.secondVal}</p>
+        <div style={styles.outerCalculator}>
+          <h2>Calculator</h2>
+          <div style={styles.calculatorContainer}>
+            <h4 style={styles.calculatorTitle}>
+              JOEL <span style={styles.model}>SZL-12345</span>
+            </h4>
+            <div style={styles.calcInput}>{this.state.displayValue}</div>
+            <div style={styles.numberContainer}>
+              <button style={styles.largeButton}>CLEAR</button>
+              <button style={styles.largeButton}>DELETE</button>
+              <br />
+              {buttons.map((button, index) => (
+                <button
+                  key={index}
+                  style={styles.smallButton}
+                  onClick={() => this.handleClick(button)}
+                >
+                  {button}
+                </button>
+              ))}
+              <br />
             </div>
+          </div>
+        </div>
       </>
     );
   }
 }
+
+const styles = {
+  calculatorTitle: {
+    color: "white",
+    fontSize: "19px",
+    margin: "2px 0px 12px 0px",
+    textAlign: "center",
+    padding: "0px",
+  },
+  model: {
+    color: "#b07080",
+  },
+  calcInput: {
+    padding: "2px 36px 2px 10px",
+    borderRadius: "5px",
+    width: "75%",
+    // font-family: "Changa", sans-serif,
+    fontSize: "25px",
+    textAlign: "right",
+    margin: "10px",
+    backgroundColor: "white",
+  },
+  numberContainer: {
+    textAlign: "center",
+  },
+  calculatorContainer: {
+    border: "2px solid #000000",
+    backgroundColor: "#434b60",
+    padding: "25px 0px 50px 0px",
+    borderRadius: "5px",
+    margin: "auto",
+    width: "300px",
+    minWidth: "200px",
+  },
+  smallButton: {
+    margin: "6px 4px",
+    padding: "15px 40px 15px 20px",
+    width: "2.8%",
+    backgroundColor: "#9897a4",
+    border: "1.5px groove #2a2a38",
+    borderRadius: "5px",
+    color: "white",
+    fontSize: "20px",
+  },
+  largeButton: {
+    margin: "3px 4px",
+    padding: "5px 20px",
+    width: "135px",
+    backgroundColor: "#9897a4",
+    border: "1.5px groove #2a2a38",
+    borderRadius: "5px",
+    color: "white",
+    fontSize: "20px",
+  },
+};
 export default Calculator;

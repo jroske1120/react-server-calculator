@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class CalcHistory extends Component {
-
+// GET call here
   render() {
     return (
       <>
