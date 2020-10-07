@@ -43,10 +43,12 @@ class Calculator extends Component {
       });
   };
 
+//   Handles the click of any button
   handleClick = (index) => {
     const { displayValue, operator, firstVal, secondVal, nextVal } = this.state;
 
     switch (index) {
+        // If a number is pressed, it is added to displayValue
       case "0":
       case "1":
       case "2":
@@ -57,6 +59,7 @@ class Calculator extends Component {
       case "7":
       case "8":
       case "9":
+          //This logic determines if numbers are set to first or second values
         this.setState({
           displayValue: displayValue === "0" ? index : displayValue + index,
         });
@@ -74,18 +77,20 @@ class Calculator extends Component {
       case "-":
       case "x":
       case "/":
+          //This sets the operator, as well as prevent two operators from being entered
         this.setState({
           operator: index,
           nextVal: true,
           displayValue:
             (operator !== null
+                // This allows the operator to be changed
               ? displayValue.substr(0, displayValue.length - 1)
               : displayValue) + index,
         });
         break;
 
       case ".":
-        //return to prevent double decimals like 4.4.4
+        //This adds decimal to a value and prevents multiple decimals
         if (!displayValue.includes(".")) {
           let decimal = displayValue.slice(-1); //gets last character
           this.setState({
@@ -103,9 +108,8 @@ class Calculator extends Component {
         }
         break;
       case "=":
-        //call POST to server
+        //sends values to server to be calculated, and resets state
         this.addCalculation(firstVal, operator, secondVal);
-        console.log(this.state);
         this.setState({
           displayValue: "0",
           operator: null,
@@ -115,6 +119,7 @@ class Calculator extends Component {
         });
         break;
       case "CLEAR":
+          //This resets state
         this.setState({
           displayValue: "0",
           operator: null,
@@ -125,6 +130,7 @@ class Calculator extends Component {
         break;
 
       case "DELETE":
+          //This removes the last char from display
         let string = displayValue.toString();
         let backspace = string.substr(0, string.length - 1);
         let length = string.length;
@@ -164,6 +170,8 @@ class Calculator extends Component {
           <div style={styles.calculatorContainer}>
             <div style={styles.calcInput}>{this.state.displayValue}</div>
             <div style={styles.numberContainer}>
+                {/* I wanted some buttons styled differently, so
+                I mapped two different arrays of them */}
               {bigButtons.map((button, index) => (
                 <button
                   key={index}
