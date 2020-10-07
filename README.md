@@ -5,6 +5,7 @@ The reason I put significant effort into this calculator app is because I wasn't
 
 My goal for this new calculator (using React, Node, and PostgreSQL) was not only to advance in the hiring process for that particular job, but also to demonstrate improvement to myself and build something I'd be proud of.
 
-## Screenshot
 Visit the app online at [Heroku](https://rocky-harbor-04010.herokuapp.com/)
+
+## Screenshot
 ![Joel Roske React Calculator](Calculator.png)
