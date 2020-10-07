@@ -9,6 +9,10 @@ class Calculator extends Component {
     nextVal: false,
   };
 
+  addCalculation = (firstVal, operator, secondVal) =>{
+    console.log('sending calculation', `${firstVal} ${operator} ${secondVal}`)
+
+  }
   handleClick = (index) => {
     console.log("clicked", this.state.displayValue);
     const { displayValue, operator, firstVal, secondVal, nextVal } = this.state;
@@ -69,6 +73,7 @@ class Calculator extends Component {
         break;
       case "=":
         //call POST to server
+        this.addCalculation(firstVal, operator, secondVal)
         console.log(this.state);
         this.setState({
           displayValue: "0",
@@ -124,7 +129,7 @@ class Calculator extends Component {
           <h2>Calculator</h2>
           <div style={styles.calculatorContainer}>
             <h4 style={styles.calculatorTitle}>
-              JOEL <span style={styles.model}>SZL-12345</span>
+              JOEL <span style={styles.model}>SZL-2020</span>
             </h4>
             <div style={styles.calcInput}>{this.state.displayValue}</div>
             <div style={styles.numberContainer}>
