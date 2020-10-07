@@ -43,12 +43,12 @@ class Calculator extends Component {
       });
   };
 
-//   Handles the click of any button
+  //   Handles the click of any button
   handleClick = (index) => {
     const { displayValue, operator, firstVal, secondVal, nextVal } = this.state;
 
     switch (index) {
-        // If a number is pressed, it is added to displayValue
+      // If a number is pressed, it is added to displayValue
       case "0":
       case "1":
       case "2":
@@ -59,7 +59,7 @@ class Calculator extends Component {
       case "7":
       case "8":
       case "9":
-          //This logic determines if numbers are set to first or second values
+        //This logic determines if numbers are set to first or second values
         this.setState({
           displayValue: displayValue === "0" ? index : displayValue + index,
         });
@@ -77,16 +77,18 @@ class Calculator extends Component {
       case "-":
       case "x":
       case "/":
-          //This sets the operator, as well as prevent two operators from being entered
-        this.setState({
-          operator: index,
-          nextVal: true,
-          displayValue:
-            (operator !== null
-                // This allows the operator to be changed
-              ? displayValue.substr(0, displayValue.length - 1)
-              : displayValue) + index,
-        });
+        //This sets the operator, as well as prevent two operators from being entered
+        if (!operator) {
+          this.setState({
+            operator: index,
+            nextVal: true,
+            displayValue:
+              (operator !== null
+                ? // This allows the operator to be changed
+                  displayValue.substr(0, displayValue.length - 1)
+                : displayValue) + index,
+          });
+        }
         break;
 
       case ".":
@@ -119,7 +121,7 @@ class Calculator extends Component {
         });
         break;
       case "CLEAR":
-          //This resets state
+        //This resets state
         this.setState({
           displayValue: "0",
           operator: null,
@@ -130,13 +132,19 @@ class Calculator extends Component {
         break;
 
       case "DELETE":
-          //This removes the last char from display
-        let string = displayValue.toString();
-        let backspace = string.substr(0, string.length - 1);
-        let length = string.length;
+        //This removes the last char from display
         this.setState({
-          displayValue: length === 1 ? "0" : backspace,
+          displayValue: displayValue.slice(0, -1),
         });
+        if (!nextVal) {
+          this.setState({
+            firstVal: firstVal.slice(0, -1),
+          });
+        } else {
+          this.setState({
+            secondVal: secondVal.slice(0, -1),
+          });
+        }
         break;
       default:
         return this.state;
@@ -170,7 +178,7 @@ class Calculator extends Component {
           <div style={styles.calculatorContainer}>
             <div style={styles.calcInput}>{this.state.displayValue}</div>
             <div style={styles.numberContainer}>
-                {/* I wanted some buttons styled differently, so
+              {/* I wanted some buttons styled differently, so
                 I mapped two different arrays of them */}
               {bigButtons.map((button, index) => (
                 <button
@@ -195,12 +203,12 @@ class Calculator extends Component {
             </div>
           </div>
           <div>
-              <h1>Past 10 Calculations</h1>
-          <ul>
-            {this.state.calculation.map((calc) => (
-              <li key={calc.id}>{calc.calculation}</li>
-            ))}
-          </ul>
+            <h1>Past 10 Calculations</h1>
+            <ul>
+              {this.state.calculation.map((calc) => (
+                <li key={calc.id}>{calc.calculation}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </>
