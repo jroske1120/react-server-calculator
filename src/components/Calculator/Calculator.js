@@ -78,22 +78,20 @@ class Calculator extends Component {
       case "x":
       case "/":
         //This sets the operator, as well as prevent two operators from being entered
-        if (!operator) {
-          this.setState({
-            operator: index,
-            nextVal: true,
-            displayValue:
-              (operator !== null
-                ? // This allows the operator to be changed
-                  displayValue.substr(0, displayValue.length - 1)
-                : displayValue) + index,
-          });
-        }
+        this.setState({
+          operator: index,
+          nextVal: true,
+          displayValue:
+            (operator !== null
+              ? // This allows the operator to be changed
+                displayValue.substr(0, displayValue.length - 1)
+              : displayValue) + index,
+        });
         break;
 
       case ".":
         //This adds decimal to a value and prevents multiple decimals
-        if (!displayValue.includes(".")) {
+        if ((!firstVal.includes(".") && !nextVal) || (!secondVal.includes(".") && nextVal ) ) {
           let decimal = displayValue.slice(-1); //gets last character
           this.setState({
             displayValue: decimal !== "." ? displayValue + index : displayValue,
@@ -109,16 +107,19 @@ class Calculator extends Component {
           }
         }
         break;
+
       case "=":
         //sends values to server to be calculated, and resets state
-        this.addCalculation(firstVal, operator, secondVal);
-        this.setState({
-          displayValue: "0",
-          operator: null,
-          firstVal: "",
-          secondVal: "",
-          nextVal: false,
-        });
+        if (operator && firstVal !== "" && secondVal !== "") {
+          this.addCalculation(firstVal, operator, secondVal);
+          this.setState({
+            displayValue: "0",
+            operator: null,
+            firstVal: "",
+            secondVal: "",
+            nextVal: false,
+          });
+        }
         break;
       case "CLEAR":
         //This resets state
@@ -134,7 +135,8 @@ class Calculator extends Component {
       case "DELETE":
         //This removes the last char from display
         this.setState({
-          displayValue: displayValue.length < 2 ? '0' : displayValue.slice(0, -1),
+          displayValue:
+            displayValue.length < 2 ? "0" : displayValue.slice(0, -1),
         });
         if (!nextVal) {
           this.setState({
